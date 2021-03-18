@@ -8,7 +8,7 @@ import { UserProvider } from './context/UserContext'
 import { userActions } from './actions'
 
 // import { Button } from 'bootstrap'
-import AddUser from './component/AddUser'
+import UserForm from './component/UserForm'
 import Home from './component/Home'
 function App() {
   return (
@@ -19,10 +19,10 @@ function App() {
             <Home />
           </Route>
           <Route path='/users/edit/:id'>
-            <AddUser actionName='Güncelle' />
+            <UserForm actionName='Güncelle' />
           </Route>
           <Route path='/users/add'>
-            <AddUser actionName='Ekle' />
+            <UserForm actionName='Ekle' />
           </Route>
         </Switch>
       </Router>

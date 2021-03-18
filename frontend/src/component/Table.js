@@ -36,7 +36,7 @@ function Row({ user, index }) {
   }
 
   const handleUpdate = () => {
-    history.push(`/edit/${user.id}`)
+    history.push(`/users/edit/${user.id}`)
   }
   return (
     <>

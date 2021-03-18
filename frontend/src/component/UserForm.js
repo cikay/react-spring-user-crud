@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button, Form } from 'react-bootstrap'
 import { useUserContext } from '../context/UserContext'
 import { userActions } from '../actions'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 const defaultState = {
   email: '',
   gsm: '',
@@ -10,10 +10,20 @@ const defaultState = {
   adress: '',
   password: '',
 }
-export default function AddUser({ actionName, user }) {
+export default function AddUser({ actionName }) {
   const [formData, setFormData] = useState(defaultState)
-  const { postUser, updateUser } = useUserContext()
+  const { postUser, updateUser, user, getUserById } = useUserContext()
+
   const history = useHistory()
+  const { id } = useParams()
+  console.log('id', id)
+
+  useEffect(async () => {
+    if (id) {
+      await getUserById(id)
+    }
+  })
+
   const handleChange = (e) => {
     const { id, value } = e.target
     console.log(value)
@@ -36,12 +46,12 @@ export default function AddUser({ actionName, user }) {
     }
   }
 
-  console.log('form', Form)
+  console.log('user', user)
 
   return (
     <div style={{ margin: 'auto' }}>
       <Form onSubmit={handleSubmit}>
-        <Form.Group controlId='formBasicEmail'>
+        <Form.Group>
           <Form.Label>Email addresi</Form.Label>
           <Form.Control
             required
@@ -49,27 +59,30 @@ export default function AddUser({ actionName, user }) {
             placeholder='Enter email'
             id='email'
             onChange={handleChange}
+            defaultValue={user.email || ''}
           />
         </Form.Group>
-        <Form.Group controlId='formBasicEmail'>
+        <Form.Group>
           <Form.Label>Gsm</Form.Label>
           <Form.Control
             required
             type='number'
             id='gsm'
             onChange={handleChange}
+            value={user ? user.gsm : ''}
           />
         </Form.Group>
-        <Form.Group controlId='formBasicEmail'>
+        <Form.Group>
           <Form.Label>Tckn</Form.Label>
           <Form.Control
             required
             type='number'
             id='tckn'
             onChange={handleChange}
+            value={user ? user.tckn : ''}
           />
         </Form.Group>
-        <Form.Group controlId='formBasicEmail'>
+        <Form.Group>
           <Form.Label>Adres</Form.Label>
           <Form.Control
             required
@@ -77,9 +90,10 @@ export default function AddUser({ actionName, user }) {
             id='adress'
             onChange={handleChange}
             display='inline'
+            value={user ? user.adress : ''}
           />
         </Form.Group>
-        <Form.Group controlId='formBasicPassword'>
+        <Form.Group>
           <Form.Label>Şifre</Form.Label>
           <Form.Control
             required
