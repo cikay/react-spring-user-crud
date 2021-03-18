@@ -59,7 +59,7 @@ export default function AddUser({ actionName }) {
             placeholder='Enter email'
             id='email'
             onChange={handleChange}
-            defaultValue={user.email || ''}
+            defaultValue={user ? user.email : ''}
           />
         </Form.Group>
         <Form.Group>
@@ -68,8 +68,8 @@ export default function AddUser({ actionName }) {
             required
             type='number'
             id='gsm'
+            defaultValue={user ? user.gsm : ''}
             onChange={handleChange}
-            value={user ? user.gsm : ''}
           />
         </Form.Group>
         <Form.Group>
@@ -79,7 +79,7 @@ export default function AddUser({ actionName }) {
             type='number'
             id='tckn'
             onChange={handleChange}
-            value={user ? user.tckn : ''}
+            defaultValue={user ? user.tckn : ''}
           />
         </Form.Group>
         <Form.Group>
@@ -88,9 +88,9 @@ export default function AddUser({ actionName }) {
             required
             type='text'
             id='adress'
-            onChange={handleChange}
             display='inline'
-            value={user ? user.adress : ''}
+            defaultValue={user ? user.adress : ''}
+            onChange={handleChange}
           />
         </Form.Group>
         <Form.Group>
