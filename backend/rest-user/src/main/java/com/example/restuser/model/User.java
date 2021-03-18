@@ -60,7 +60,7 @@ public class User {
 
     @Column(name = "gsm", nullable = false)
     public String getGsm() { 
-        return password;
+        return gsm;
     }
 
     public void setGsm(String gsm) {
@@ -69,7 +69,7 @@ public class User {
 
     @Column(name = "adress", nullable = false)
     public String getAdress() { 
-        return password;
+        return adress;
     }
 
     public void setAdress(String adress) {

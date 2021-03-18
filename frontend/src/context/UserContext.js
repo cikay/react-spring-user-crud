@@ -37,11 +37,22 @@ export function UserProvider({ children }) {
     setState((prevState) => ({ ...prevState, user: res.data }))
   }
 
+  const resetUser = () => {
+    setState((prevState) => ({ ...prevState, user: '' }))
+  }
+
   useEffect(async () => {
     const res = await getUsers()
     console.log(res)
     setState((prevState) => ({ ...prevState, users: res.data }))
   }, [])
-  const value = { ...state, postUser, deleteUser, updateUser, getUserById }
+  const value = {
+    ...state,
+    postUser,
+    deleteUser,
+    updateUser,
+    getUserById,
+    resetUser,
+  }
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>
 }

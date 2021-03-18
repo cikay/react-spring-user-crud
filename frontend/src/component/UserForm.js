@@ -10,9 +10,15 @@ const defaultState = {
   adress: '',
   password: '',
 }
-export default function AddUser({ actionName }) {
+export default function UserForm({ actionName }) {
   const [formData, setFormData] = useState(defaultState)
-  const { postUser, updateUser, user, getUserById } = useUserContext()
+  const {
+    postUser,
+    updateUser,
+    user,
+    getUserById,
+    resetUser,
+  } = useUserContext()
 
   const history = useHistory()
   const { id } = useParams()
@@ -40,13 +46,12 @@ export default function AddUser({ actionName }) {
       }
       console.log('formData', formData)
       // setFormData(defaultState)
+      resetUser()
       history.push('/')
     } catch (err) {
       console.error(err)
     }
   }
-
-  console.log('user', user)
 
   return (
     <div style={{ margin: 'auto' }}>
@@ -78,8 +83,8 @@ export default function AddUser({ actionName }) {
             required
             type='number'
             id='tckn'
-            onChange={handleChange}
             defaultValue={user ? user.tckn : ''}
+            onChange={handleChange}
           />
         </Form.Group>
         <Form.Group>
