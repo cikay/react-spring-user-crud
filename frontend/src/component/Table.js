@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Table } from 'react-bootstrap'
 import { useUserContext } from '../context/UserContext'
 import { useHistory } from 'react-router-dom'
+import ModalForm from './ModalForm'
 export default function CustomizedTable() {
   const { users } = useUserContext()
 
@@ -28,15 +29,25 @@ export default function CustomizedTable() {
 }
 
 function Row({ user, index }) {
-  const { updateUser, deleteUser } = useUserContext()
+  const { updateUser, deleteUser, getUserById } = useUserContext()
+
+  const [modalShow, setModalShow] = useState(false)
 
   const history = useHistory()
   const handleDelete = async () => {
     await deleteUser(user.id)
   }
 
-  const handleUpdate = () => {
+  const handleUpdate = async () => {
+    await getUserById(user.id)
     history.push(`/users/edit/${user.id}`)
+  }
+
+  const handleOpen = () => {
+    setModalShow(() => true)
+  }
+  const handleClose = () => {
+    setModalShow(() => false)
   }
   return (
     <>
@@ -47,7 +58,13 @@ function Row({ user, index }) {
         <td key={user.tckn}>{user.tckn}</td>
         <td key={user.adress}>{user.adress}</td>
         <td key='btns'>
-          <Button variant='primary' onClick={handleUpdate}>
+          <ModalForm
+            onHide={handleClose}
+            show={modalShow}
+            user={user}
+            actionName='Güncelle'
+          />
+          <Button variant='primary' onClick={handleOpen}>
             Güncelle
           </Button>{' '}
           <Button variant='danger' onClick={handleDelete}>

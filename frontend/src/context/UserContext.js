@@ -5,10 +5,20 @@ const API_URL = 'http://localhost:8080'
 const UserContext = React.createContext()
 export const useUserContext = () => useContext(UserContext)
 export function UserProvider({ children }) {
-  const [state, setState] = useState({ users: [], user: '' })
+  const [state, setState] = useState({ users: [] })
+
+  const [modalShow, setModalShow] = useState(false)
   const getUsers = async () => {
     console.log('url', API_URL)
     return await axios.get(`${API_URL}/users`)
+  }
+
+  const openModal = () => {
+    setModalShow(true)
+  }
+
+  const closeModal = () => {
+    setModalShow(false)
   }
 
   const postUser = async (payload) => {
@@ -53,6 +63,9 @@ export function UserProvider({ children }) {
     updateUser,
     getUserById,
     resetUser,
+    openModal,
+    closeModal,
+    modalShow,
   }
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>
 }
