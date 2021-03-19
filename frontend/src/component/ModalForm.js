@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Modal, Button, Form } from 'react-bootstrap'
 import { userActions } from '../actions'
 import { useUserContext } from '../context/UserContext'
+import CenteredContainer from './CenteredComponent'
 
 const defaultState = {
   email: '',
@@ -50,7 +51,7 @@ export default function MyVerticallyCenteredModal({
     <Modal
       show={show}
       onHide={onHide}
-      size='lg'
+      size='md'
       aria-labelledby='contained-modal-title-vcenter'
       centered
     >
